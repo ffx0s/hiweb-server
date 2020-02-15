@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:3.4.7
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    command:
+      - /bin/sh
+      - -c
+      - |
+        mongod --logpath /var/log/mongodb/mongodb.log
+
+  redis:
+    image: redis:5.0.7
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+      - ./data/config/redis.conf:/etc/redis.conf
+    command: ["redis-server", "/etc/redis.conf"]
