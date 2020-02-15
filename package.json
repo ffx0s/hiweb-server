@@ -1,0 +1,38 @@
+{
+  "name": "hiweb",
+  "version": "1.0.0",
+  "description": "web site",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development ts-node-dev --notify false --inspect -- ./src/index.ts"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@graphql-modules/core": "^0.7.13",
+    "apollo-server": "^2.9.12",
+    "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
+    "connect-redis": "^4.0.3",
+    "cookie-parser": "^1.4.4",
+    "express-rate-limit": "^5.0.0",
+    "express-session": "^1.17.0",
+    "graphql": "^14.5.8",
+    "graphql-fields-list": "^2.1.2",
+    "mongoose": "^5.7.13",
+    "mongoose-lean-virtuals": "^0.5.0",
+    "rate-limit-redis": "^1.7.0",
+    "redis": "^2.8.0",
+    "shortid": "^2.2.15",
+    "upyun": "^3.3.11"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.2",
+    "@types/express-session": "^1.15.16",
+    "@types/redis": "^2.8.14",
+    "nodemon": "^2.0.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.2"
+  }
+}
