@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: compressed file
-        run: tar czvf ./app.tar.gz --exclude=node_modules --exclude=src*
+        run: tar czvf ./app.tar.gz --exclude=node_modules --exclude=src *
 
       - name: copy file
         uses: appleboy/scp-action@master
