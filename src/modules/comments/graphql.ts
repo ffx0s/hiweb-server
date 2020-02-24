@@ -9,7 +9,10 @@ function notFoundError() {
 }
 
 module.exports = new GraphQLModule({
-  imports: [require('../auth/graphql'), require('../users/graphql')],
+  imports: [
+    require('../auth/graphql'),
+    require('../users/graphql')
+  ],
   typeDefs: gql`
     type Query {
       comments(

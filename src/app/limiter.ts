@@ -1,8 +1,7 @@
-import * as express from 'express'
-import * as redis from 'redis'
-
-const RateLimit = require('express-rate-limit')
-const RedisStore = require('rate-limit-redis')
+import express from 'express'
+import redis from 'redis'
+import RateLimit from 'express-rate-limit'
+import RedisStore from 'rate-limit-redis'
 
 const whitelist = ['127.0.0.1', '192.168.3.14', '1']
 

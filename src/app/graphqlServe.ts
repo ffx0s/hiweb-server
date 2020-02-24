@@ -1,9 +1,9 @@
-import * as express from 'express'
+import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { GraphQLModule } from '@graphql-modules/core'
 import { SchemaDirectiveVisitor } from 'graphql-tools'
 
-const { ENGINE_API_KEY, PRODUCTION, DEVELOPMENT } = require('../config')
+const { ENGINE_API_KEY, IS_DEV, IS_PROD } = require('../config')
 
 export function createGraphqlServe (app: express.Application, modules: Array<string>) {
   const AppModule = new GraphQLModule({
@@ -16,9 +16,9 @@ export function createGraphqlServe (app: express.Application, modules: Array<str
   const server = new ApolloServer({
     context: session => session,
     schema: schema,
-    debug: DEVELOPMENT,
-    // tracing: !isProduction,
-    engine: PRODUCTION
+    debug: IS_DEV,
+    // tracing: IS_DEV,
+    engine: IS_PROD
       ? { apiKey: ENGINE_API_KEY, schemaTag: 'production' } 
       : {},
     playground: {
@@ -38,7 +38,7 @@ export function createGraphqlServe (app: express.Application, modules: Array<str
     app,
     path: '/api',
     cors: {
-      origin: PRODUCTION ? null : function (origin: string, callback: Function) {
+      origin: IS_PROD ? null : function (origin: string, callback: Function) {
         callback(null, true)
       },
       credentials: true
