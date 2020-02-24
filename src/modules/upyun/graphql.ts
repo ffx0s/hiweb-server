@@ -1,6 +1,7 @@
 import { GraphQLModule } from '@graphql-modules/core'
 import { gql } from 'apollo-server'
-import * as crypto from 'crypto'
+import crypto from 'crypto'
+
 const { UPYUN_BUCKETNAME, UPYUN_USERNAME, UPYUN_PASSWORD } = require('../../config')
 
 function MD5 (value: string) {

@@ -8,7 +8,10 @@ function notFoundError(text = '') {
 }
 
 module.exports = new GraphQLModule({
-  imports: [require('../auth/graphql'), require('../posts/graphql')],
+  imports: [
+    require('../auth/graphql'),
+    require('../posts/graphql')
+  ],
   typeDefs: gql`
     type Query {
       categories(sort: CategorySortInput): [Category!]!
