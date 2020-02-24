@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: compressed file
-        run: tar czvf ./app.tar.gz --exclude=node_modules --exclude=src --exclude=.env *
+        run: tar czvf ./app.tar.gz --exclude=node_modules --exclude=src*
 
       - name: copy file
         uses: appleboy/scp-action@master
@@ -44,5 +44,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_KEY }}
           script: |
-            cd ~/tmp && tar xf app.tar.gz -C ~/app/hiweb-server
-            cd ~/app/hiweb-server && docker-compose -f docker-compose.yml -f prod.yml up -d
+            cd ~/app/hiweb-server
+            sudo rm -rf `ls | grep -v .env`
+            tar xf ~/tmp/app.tar.gz
+            sudo docker-compose -f docker-compose.yml -f prod.yml up -d
