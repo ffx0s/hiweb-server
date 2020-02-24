@@ -1,14 +1,15 @@
-.DS_Store
-node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.DS_Store
 .vscode
 .idea
 .qshell
+.env
 
-src/config/development.js
-src/config/production.js
-db/
+node_modules
+db
 data/db
 data/redis
+dist
