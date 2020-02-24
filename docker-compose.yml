@@ -1,22 +1,30 @@
 version: "3"
 services:
-  mongo:
-    container_name: mongo
-    image: mongo:3.4.7
+  app:
+    image: node:12-alpine
     ports:
-      - "27017:27017"
+      - ${PORT}:${PORT}
+    volumes:
+      - ./:/app
+    depends_on:
+      - redis
+      - mongo
+
+  mongo:
+    image: mongo:3.4.7
+    # 等于 .env 文件里的变量
+    environment:
+      MONGO_INITDB_ROOT_USERNAME:
+      MONGO_INITDB_ROOT_PASSWORD:
+      MONGO_INITDB_DATABASE:
+      MONGO_INITDB_USERNAME:
+      MONGO_INITDB_PASSWORD:
     volumes:
       - ./data/db:/data/db
-    command:
-      - /bin/sh
-      - -c
-      - |
-        mongod --logpath /var/log/mongodb/mongodb.log
+      - ./data/config/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
 
   redis:
     image: redis:5.0.7
-    ports:
-      - "6379:6379"
     volumes:
       - ./data/redis:/data
       - ./data/config/redis.conf:/etc/redis.conf
