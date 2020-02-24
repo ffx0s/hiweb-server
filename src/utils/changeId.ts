@@ -1,4 +1,4 @@
-import * as mongooseLeanVirtuals from 'mongoose-lean-virtuals'
+import mongooseLeanVirtuals from 'mongoose-lean-virtuals'
 
 // 设置字段 id 的值等于 _id
 export default function changeId (Schema) {

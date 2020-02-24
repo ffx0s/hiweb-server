@@ -1,6 +1,6 @@
 import axios from 'axios'
 import User from '../modules/users/model'
-import * as shortid from 'shortid'
+import shortid from 'shortid'
 
 const { CLIENT_ID, CLIENT_SECRET } = require('../config')
 
@@ -11,8 +11,6 @@ async function oauth (req: any, res: any) {
   const userInfo = await getUserData(code).catch(err => {
     failure(err, req, res)
   })
-
-  // console.log('userInfo::::', userInfo)
 
   success('githubId', req, res, {
     id: userInfo.id,
@@ -41,7 +39,6 @@ async function getUserData (code: string) {
     url: `https://api.github.com/user`,
     headers: {
       accept: 'application/json',
-      // Authorization: `token 49ca725d22e4eabd3f1944da3d7c95e0b95265f1`
       Authorization: `token ${accessToken}`
     }
   })
@@ -97,39 +94,6 @@ function login (req: any, user: any) {
   req.session.user = sessionUser
   console.log('login success')
 }
-
-// 49ca725d22e4eabd3f1944da3d7c95e0b95265f1
-// const userInfo = { login: 'ffx0s',
-//   id: 13212645,
-//   node_id: 'MDQ6VXNlcjEzMjEyNjQ1',
-//   avatar_url: 'https://avatars1.githubusercontent.com/u/13212645?v=4',
-//   gravatar_id: '',
-//   url: 'https://api.github.com/users/ffx0s',
-//   html_url: 'https://github.com/ffx0s',
-//   followers_url: 'https://api.github.com/users/ffx0s/followers',
-//   following_url: 'https://api.github.com/users/ffx0s/following{/other_user}',
-//   gists_url: 'https://api.github.com/users/ffx0s/gists{/gist_id}',
-//   starred_url: 'https://api.github.com/users/ffx0s/starred{/owner}{/repo}',
-//   subscriptions_url: 'https://api.github.com/users/ffx0s/subscriptions',
-//   organizations_url: 'https://api.github.com/users/ffx0s/orgs',
-//   repos_url: 'https://api.github.com/users/ffx0s/repos',
-//   events_url: 'https://api.github.com/users/ffx0s/events{/privacy}',
-//   received_events_url: 'https://api.github.com/users/ffx0s/received_events',
-//   type: 'User',
-//   site_admin: false,
-//   name: null,
-//   company: null,
-//   blog: 'https://webfed.cn',
-//   location: null,
-//   email: null,
-//   hireable: null,
-//   bio: null,
-//   public_repos: 16,
-//   public_gists: 0,
-//   followers: 4,
-//   following: 5,
-//   created_at: '2015-07-07T04:02:03Z',
-//   updated_at: '2019-12-15T11:46:43Z' }
 
 export function createOauthRoute (app) {
   app.get('/oauth/redirect', oauth)
