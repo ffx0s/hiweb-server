@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express'
 import { GraphQLModule } from '@graphql-modules/core'
 import { SchemaDirectiveVisitor } from 'graphql-tools'
 
-const { ENGINE_API_KEY, IS_DEV, IS_PROD } = require('../config')
+const { ENGINE_API_KEY, IS_DEV, IS_PROD, CORS_WHITELIST } = require('../config')
 
 export function createGraphqlServe (app: express.Application, modules: Array<string>) {
   const AppModule = new GraphQLModule({
@@ -35,12 +35,18 @@ export function createGraphqlServe (app: express.Application, modules: Array<str
     // }
   })
 
+  const whitelist = CORS_WHITELIST.split(',')
+  
   server.applyMiddleware({
     app,
     path: '/api',
     cors: {
-      origin: IS_PROD ? null : function (origin: string, callback: Function) {
-        callback(null, true)
+      origin: function (origin, callback) {
+        if (IS_DEV || whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
       },
       credentials: true
     }
