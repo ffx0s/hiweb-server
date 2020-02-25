@@ -21,11 +21,12 @@ export function createGraphqlServe (app: express.Application, modules: Array<str
     engine: IS_PROD
       ? { apiKey: ENGINE_API_KEY, schemaTag: 'production' } 
       : {},
-    playground: {
+    introspection: IS_DEV,
+    playground: IS_DEV ? {
       settings: {
         'request.credentials': 'include'
       }
-    },
+    } : false,
     // cacheControl: { defaultMaxAge: 691200 }
     // cacheControl: {
     //   defaultMaxAge: 500,
