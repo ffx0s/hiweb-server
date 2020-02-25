@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: install node packages
+      - name: Install node packages
         uses: bahmutov/npm-install@v1
 
       - name: Use Node.js ${{ matrix.node-version }}
@@ -22,13 +22,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       
-      - name: typescript compile
+      - name: Typescript compile
         run: npm run build
 
-      - name: compressed file
+      - name: Compressed file
         run: tar czvf ./app.tar.gz --exclude=node_modules --exclude=src *
 
-      - name: copy file
+      - name: Copy file
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -37,7 +37,7 @@ jobs:
           source: "./app.tar.gz"
           target: "~/tmp"
 
-      - name: executing remote ssh commands
+      - name: Start deploying the application
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
