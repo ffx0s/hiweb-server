@@ -5,7 +5,7 @@ services:
     ports:
       - ${PORT}:${PORT}
     volumes:
-      - ./:/app
+      - ./:/app:cached
     depends_on:
       - redis
       - mongo
@@ -20,12 +20,12 @@ services:
       MONGO_INITDB_USERNAME:
       MONGO_INITDB_PASSWORD:
     volumes:
-      - ./data/db:/data/db
-      - ./data/config/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./data/db:/data/db:cached
+      - ./data/config/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:cached
 
   redis:
     image: redis:5.0.7
     volumes:
-      - ./data/redis:/data
-      - ./data/config/redis.conf:/etc/redis.conf
+      - ./data/redis:/data:cached
+      - ./data/config/redis.conf:/etc/redis.conf:cached
     command: ["redis-server", "/etc/redis.conf"]
