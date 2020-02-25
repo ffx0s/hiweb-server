@@ -4,7 +4,7 @@
 
 ## 功能
 1. 用户登录注册，含第三方登录注册（github）。
-2. 文章、分类、标签、存档等模块等添加/删除/修改。
+2. 文章、分类、标签、存档等模块的添加/删除/修改。
 3. 留言评论功能。
 
 ## 使用
@@ -26,13 +26,17 @@ docker-compose -f docker-compose.yml -f dev.yml up
 
 ### 构建和部署
 
-github actions 负责构建打包，执行以下命令部署：
+当提交代码到 github 主分支上，github actions 就会自动执行构建打包的流程，然后把打包的内容上传到云服务器，并且执行部署命令：
 
 ```
-cd docker-node-mongodb
 docker-compose -f docker-compose.yml -f prod.yml up -d
 ```
 
-## 注意事项
+### 测试环境
 
-如果运行在 winodw 环境，使用 docker volumes 映射 mongodb 数据到本机会报错。
+执行命令后，将会打包编译 typescript 到 dist 目录，以 dist 目录里的文件运行应用。
+
+```
+cd docker-node-mongodb
+docker-compose -f docker-compose.yml -f test.yml up
+```
