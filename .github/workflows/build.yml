@@ -45,6 +45,6 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           script: |
             cd ~/app/hiweb-server
-            sudo rm -rf `ls | grep -v .env`
+            sudo rm -rf !(data)
             tar xf ~/tmp/app.tar.gz
             sudo docker-compose -f docker-compose.yml -f prod.yml up -d
