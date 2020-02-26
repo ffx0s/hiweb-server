@@ -42,7 +42,7 @@ export function createGraphqlServe (app: express.Application, modules: Array<str
     path: '/api',
     cors: {
       origin: function (origin, callback) {
-        if (IS_DEV || whitelist.indexOf(origin) !== -1) {
+        if (IS_DEV || !origin || whitelist.indexOf(origin) !== -1) {
           callback(null, true)
         } else {
           callback(new Error('Not allowed by CORS'))
