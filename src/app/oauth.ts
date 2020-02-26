@@ -7,7 +7,7 @@ const { CLIENT_ID, CLIENT_SECRET } = require('../config')
 async function oauth (req: any, res: any) {
   const code = req.query.code
   console.log('session', req.session)
-  console.log('authorization code:', code, req.cookies)
+  console.log('authorization code:', code)
   const userInfo = await getUserData(code).catch(err => {
     failure(err, req, res)
   })
@@ -75,13 +75,19 @@ async function success (idKey: string, req: any, res: any, userInfo: any) {
     login(req, userDoc)
   }
 
-  res.cookie('ROLE', user.role)
-  res.redirect(req.cookies.oauth_redirect || '/')
+  const callback = req.query.callback
+
+  if (callback) {
+    res.redirect(callback)
+  } else {
+    res.send('登录成功')
+  }
+
 }
 
 function failure (err: Error, req: any, res: any) {
   console.log('error:', err.message)
-  res.send('授权失败，请重试')
+  res.send('授权失败，<a href="javascript:;" onclick="history.back()">返回</a>')
   throw err
 }
 
@@ -90,8 +96,8 @@ function login (req: any, user: any) {
   const sessionUser = {
     id: _id, username, name, avatar, created, role, githubId
   }
-  console.log('session user', req.session)
   req.session.user = sessionUser
+  console.log('session user', req.session)
   console.log('login success')
 }
 
