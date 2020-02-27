@@ -25,14 +25,14 @@ schema.statics.updatePostId = async function (
 ) {
   if (postCreated) {
     // 删除
-    const date = +new Date(postCreated.getFullYear(), postCreated.getMonth() + 1)
+    const date = +new Date(postCreated.toJSON().slice(0, 7))
     const archive = await this.findOne({date})
 
     await archive.update({ $pull: {posts: postId} })
   } else {
     // 添加
     const current = new Date()
-    const date = +new Date(current.getFullYear(), current.getMonth() + 1)
+    const date = +new Date(current.toJSON().slice(0, 7))
     let archive = await this.findOne({date})
 
     if (!archive) {
