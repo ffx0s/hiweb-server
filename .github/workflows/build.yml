@@ -47,4 +47,5 @@ jobs:
             cd ~/app/hiweb-server
             sudo rm -rf !\(data\)
             tar xf ~/tmp/app.tar.gz
+            sudo docker-compose -f docker-compose.yml -f prod.yml down
             sudo docker-compose -f docker-compose.yml -f prod.yml up -d
