@@ -91,10 +91,9 @@ module.exports = new GraphQLModule({
         return archives
       },
       async archive (_, { date }, __, info) {
-        date = date.split('-')
         const populate = getPopulate(info, 'posts')
         const archive = await Archive
-          .findOne({ date: +new Date(date[0], date[1]) })
+          .findOne({ date: +new Date(date) })
           .populate(populate)
           .lean({ virtuals: true })
           .catch(notFoundError)
