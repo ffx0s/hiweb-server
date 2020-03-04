@@ -14,6 +14,6 @@ createMongoose()
 createSession(app, redisClient)
 // createLimiter(app, redisClient)
 createOauthRoute(app)
-createGraphqlServe(app, ['users', 'posts', 'categories', 'tags', 'archives', 'comments', 'upyun'])
+createGraphqlServe(app, ['users', 'posts', 'categories', 'tags', 'archives', 'comments', 'upyun', 'build'])
 
 app.listen(PORT, () => console.log(`🚀 listening on port ${PORT}!`))
