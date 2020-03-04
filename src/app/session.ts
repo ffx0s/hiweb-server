@@ -12,7 +12,7 @@ export function createSession(app: express.Application, redisClient: redis.Redis
       store: new RedisStore({ client: redisClient }),
       secret: SECRET_KEY,
       resave: false,
-      saveUninitialized: true,
+      saveUninitialized: false,
       cookie: { secure: IS_PROD, maxAge: 120 * 3600 * 1000 } // 5天(120小时)，后过期
     })
   )
