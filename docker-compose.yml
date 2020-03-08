@@ -9,6 +9,8 @@ services:
     depends_on:
       - redis
       - mongo
+    extra_hosts:
+      - "api.github.com:140.82.113.6"
 
   mongo:
     image: mongo:3.4.7
