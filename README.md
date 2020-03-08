@@ -20,7 +20,7 @@
 首先需要添加 .env 文件到项目根目录，配置参考根目录的 .env.example 文件，然后启动开发环境：
 
 ```
-cd docker-node-mongodb
+cd hiweb-server
 docker-compose -f docker-compose.yml -f dev.yml up
 ```
 
@@ -37,6 +37,6 @@ docker-compose -f docker-compose.yml -f prod.yml up -d
 执行命令后，将会打包编译 typescript 到 dist 目录，以 dist 目录里的文件运行应用。
 
 ```
-cd docker-node-mongodb
+cd hiweb-server
 docker-compose -f docker-compose.yml -f test.yml up
 ```
