@@ -2,7 +2,7 @@ import { createApp } from './app/express'
 import { createRedis } from './app/redis'
 import { createMongoose } from './app/mongoose'
 import { createSession } from './app/session'
-// import { createLimiter } from './app/limiter'
+import { createLimiter } from './app/limiter'
 import { createOauthRoute } from './app/oauth'
 import { createGraphqlServe } from './app/graphqlServe'
 
@@ -12,7 +12,7 @@ const redisClient = createRedis()
 
 createMongoose()
 createSession(app, redisClient)
-// createLimiter(app, redisClient)
+createLimiter(app, redisClient)
 createOauthRoute(app)
 createGraphqlServe(app, ['users', 'posts', 'categories', 'tags', 'archives', 'comments', 'upyun', 'build'])
 
