@@ -85,7 +85,7 @@ module.exports = new GraphQLModule({
         const comments = await Comment.paginate(query, {
           ...paginate,
           sort: {created: sort},
-          leanWithId: true,
+          leanWithId: false,
           populate: [{path: 'user', select: userFields}, {path: 'to', select: toFields}],
           lean: { virtuals: true },
         })

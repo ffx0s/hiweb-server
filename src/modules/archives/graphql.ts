@@ -80,7 +80,7 @@ module.exports = new GraphQLModule({
           page: +page,
           limit: +limit,
           populate: populate,
-          leanWithId: true,
+          leanWithId: false,
           lean: { virtuals: true },
         })
 
@@ -97,7 +97,6 @@ module.exports = new GraphQLModule({
           .populate(populate)
           .lean({ virtuals: true })
           .catch(notFoundError)
-    
         if (!archive) notFoundError()
     
         return archive
