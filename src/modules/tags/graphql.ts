@@ -61,7 +61,7 @@ module.exports = new GraphQLModule({
           sort: {sort: -1},
           page: +page,
           limit: +limit,
-          leanWithId: true,
+          leanWithId: false,
           lean: { virtuals: true }
         })
 

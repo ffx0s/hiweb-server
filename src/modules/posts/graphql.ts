@@ -32,8 +32,6 @@ module.exports = new GraphQLModule({
 
       post(id: ID!): Post
 
-      postIds: [ID!]!
-
       adjacentPosts(id: ID!): AdjacentPost! 
     }
 
@@ -134,7 +132,7 @@ module.exports = new GraphQLModule({
           limit: +limit,
           select: postFields,
           populate: populate,
-          leanWithId: true,
+          leanWithId: false,
           lean: { virtuals: true },
         })
 
@@ -153,10 +151,6 @@ module.exports = new GraphQLModule({
         if (!post) notFoundError()
     
         return post
-      },
-      async postIds () {
-        const result = await Post.find().select('_id')
-        return result.map(({ _id }) => _id)
       },
       async adjacentPosts (_, { id }, __, info) {
         const prevPostFields = fieldsList(info, { path: 'prev' }).join(' ')
