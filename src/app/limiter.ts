@@ -2,8 +2,11 @@ import express from 'express'
 import redis from 'redis'
 import RateLimit from 'express-rate-limit'
 import RedisStore from 'rate-limit-redis'
+import { MD5 } from '../utils/shared'
+const { UPYUN_PASSWORD } = require('../config')
 
-const whitelist = ['127.0.0.1', '192.168.3.14', '1']
+const WHITE_LIST = ['127.0.0.1', '1']
+const LIMITER_TICKET = MD5(UPYUN_PASSWORD)
 
 export function createLimiter (app: express.Application, redisClient: redis.RedisClient) {
   const limiter = new RateLimit({
@@ -17,7 +20,9 @@ export function createLimiter (app: express.Application, redisClient: redis.Redi
     skip (req: express.Request) {
       const arr = req.ip.split(':')
       const ip = arr[arr.length - 1]
-      return whitelist.indexOf(ip) !== -1
+      const ticket = LIMITER_TICKET === req.headers['limiter-ticket']
+
+      return ticket || WHITE_LIST.indexOf(ip) !== -1
     }
   })
 
