@@ -1,15 +1,9 @@
+import crypto from 'crypto'
 import { GraphQLModule } from '@graphql-modules/core'
 import { gql } from 'apollo-server'
-import crypto from 'crypto'
+import { MD5 } from '../../utils/shared'
 
 const { UPYUN_BUCKETNAME, UPYUN_USERNAME, UPYUN_PASSWORD } = require('../../config')
-
-function MD5 (value: string) {
-  return crypto
-    .createHash('md5')
-    .update(value)
-    .digest('hex')
-}
 
 function hmacsha1 (secret: string, value: string) {
   return crypto.createHmac('sha1', secret).update(value).digest().toString('base64')
