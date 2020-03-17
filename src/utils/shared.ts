@@ -1,3 +1,5 @@
+import crypto from 'crypto'
+
 // 清除值为空的对象属性
 export function compactObj (obj: object) {
   Object.keys(obj).forEach(key => {
@@ -17,4 +19,24 @@ export function escapeChar (char: string) {
 
 export function isNumber (value: any) {
   return typeof value === 'number'
+}
+
+/**
+ * 位数补 0
+ * @param num 目标
+ * @param length 位数 
+ */
+export function prefixInteger(num: number|string, length: number) {
+  return (Array(length).join('0') + num).slice(-length)
+}
+
+/**
+ * MD5 计算
+ * @param value 目标
+ */
+export function MD5 (value: string) {
+  return crypto
+    .createHash('md5')
+    .update(value)
+    .digest('hex')
 }
