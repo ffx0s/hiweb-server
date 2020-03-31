@@ -2,6 +2,7 @@ import { GraphQLModule } from '@graphql-modules/core'
 import { gql, UserInputError } from 'apollo-server'
 import { fieldsList } from 'graphql-fields-list'
 import { compactObj } from '../../utils/shared'
+import { notify } from "../../utils/notice"
 import Comment from './model'
 
 function notFoundError() {
@@ -111,6 +112,14 @@ module.exports = new GraphQLModule({
         task.push(commentDoc.save())
 
         await Promise.all(task)
+
+        // 有新的评论时，将内容推送到 qq 上
+        notify('有新的评论！', [
+          ['用户：', req.session.user.name],
+          ['内容：', commentDoc.content],
+          ['文档ID：', commentDoc.typeId],
+          ['浏览器：', commentDoc.userAgent]
+        ])
 
         return commentDoc
       },
