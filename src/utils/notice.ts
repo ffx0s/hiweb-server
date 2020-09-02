@@ -1,10 +1,10 @@
 import axios from 'axios'
-const { CQ_ACCOUNT, CQ_API_URL, CQ_SEND_MESSAGE_TOKEN } = require('../config')
+const { NOTIFY_URL, NOTIFY_TOKEN } = require('../config')
 
-const headers = { 'content-type': 'application/json', 'Authorization': 'Bearer ' + CQ_SEND_MESSAGE_TOKEN }
+const headers = { 'content-type': 'application/json', 'Authorization': NOTIFY_TOKEN }
 
 export function notify (title: string, content: string|string[][]) {
-  if (!CQ_ACCOUNT) return
+  if (!NOTIFY_URL) return
 
   let message = ''
   
@@ -16,7 +16,7 @@ export function notify (title: string, content: string|string[][]) {
     message = content
   }
 
-  const data = {'user_id': CQ_ACCOUNT, 'message': `${title}\n\n${message}` }
+  const data = {title, text: `${message}` }
   
-  axios.post(CQ_API_URL + '/send_private_msg', data, { headers })
+  axios.post(NOTIFY_URL, data, { headers })
 }
