@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
 const schema = new Schema({
-  // 评论类型, 文档：post / 留言：message / 反馈：feedback
+  // 评论类型, 文档：POST / 留言：MESSAGE / 反馈：FEEDBACK
   type: {
     type: String,
     required: [true, '{VALUE}：评论类型不能为空']
