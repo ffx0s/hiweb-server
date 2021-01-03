@@ -114,8 +114,17 @@ module.exports = new GraphQLModule({
         if (category) {
           // 根据分类id找出分类名，待优化：
           const result = await Category.findOne({ name: category }).select('_id')
-          if (!result) notFoundError()
-          category = result._id
+          if (result) {
+            category = result._id
+          } else {
+            return {
+              limit,
+              page,
+              pages: 0,
+              total: 0,
+              docs: [],
+            }
+          }
         }
 
         if (title) {
