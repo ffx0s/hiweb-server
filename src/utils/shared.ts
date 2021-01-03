@@ -1,6 +1,9 @@
 import crypto from 'crypto'
 
-// 清除值为空的对象属性
+/**
+ * 清除值为空的对象属性
+ * @param obj 对象
+ */
 export function compactObj (obj: object) {
   Object.keys(obj).forEach(key => {
     const value = obj[key]
@@ -11,12 +14,19 @@ export function compactObj (obj: object) {
   return obj
 }
 
-// 转义特殊符号
+/**
+ * 转义特殊符号
+ * @param char 字符串
+ */
 export function escapeChar (char: string) {
   if (!char) return ''
   return char.trim().replace(/([\^\$\(\)\*\+\?\.\\\|\[\]\{\}])/g, '\\$1')
 }
 
+/**
+ * 目标是否为数字类型
+ * @param value 目标
+ */
 export function isNumber (value: any) {
   return typeof value === 'number'
 }
