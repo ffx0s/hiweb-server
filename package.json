@@ -25,7 +25,7 @@
     "mongoose": "^5.7.13",
     "mongoose-lean-virtuals": "^0.5.0",
     "rate-limit-redis": "^1.7.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "shortid": "^2.2.15",
     "upyun": "^3.3.11"
   },
